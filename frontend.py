@@ -1,6 +1,11 @@
 import ply.yacc as yacc
 import ply.lex as lex
 
+
+class ParseException(Exception):
+    pass
+
+
 # Reserved words
 reserved = \
     ('BREAK', 'CHAR', 'CONTINUE', 'DO', 'ELSE', 'FOR', 'IF', 'INT', 'RETURN', 'VOID', 'WHILE', 'ASM', 'PRINTSTR')
@@ -427,9 +432,9 @@ def p_statement_list(p):
 
 def p_error(p):
     if p:
-        print(f"Syntax error at: {p.value} line: {str(p.lineno)}")
+        raise ParseException(f"Syntax error at: {p.value} line: {str(p.lineno)}")
     else:
-        print("Syntax error at EOF")
+        raise ParseException("Syntax error at EOF")
 
 
 yacc.yacc()
