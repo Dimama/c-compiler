@@ -2,6 +2,7 @@
 
 import sys
 from frontend import yacc, ParseException
+from backend import parse
 
 if __name__ == "__main__":
 
@@ -17,4 +18,6 @@ if __name__ == "__main__":
 
         asm = open(sys.argv[2], 'w+')
         asm.write('# Generated from: ' + sys.argv[1] + '\n')
+
+        parse(ast, asm)
 
